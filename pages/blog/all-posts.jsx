@@ -62,7 +62,19 @@ const AllPostsPage = () => {
         </div>
       </section>
       <section className={styles.allPosts}>
-
+        <div className={styles.card}>
+          <div className={styles.cardImgCont}></div>
+          <h1>Title</h1>
+          <h3>08/21/2021</h3>
+          <div className={`${styles.readMore} ${styles.mt_30}`}>
+            <button className={styles.btn}>Read More</button>
+          </div>
+        </div>
+        <div className={styles.card}></div>
+        <div className={styles.card}></div>
+        <div className={styles.card}></div>
+        <div className={styles.card}></div>
+        <div className={styles.card}></div>
       </section>
     </Fragment>
   );
