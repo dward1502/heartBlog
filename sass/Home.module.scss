@@ -1,8 +1,12 @@
 @import '../sass/variables';
+@import '../sass/mixins';
 
 .content {
   min-height: 100vh;
   padding: 5rem;
+  @include respond(phone-md) {
+    padding: 0;
+  }
 }
 .heroText {
   // background: white;
@@ -10,26 +14,318 @@
   height: 25rem;
   font-size: 2rem;
   font-family: $font-averia;
-  padding: 5rem 30rem;
+  text-align: center;
   color: $white;
+  margin-top: 8rem;
+  @media only screen and (min-width: 56.25em) {
+    padding: 0rem 5rem;
+  }
+  @include respond(phone-md) {
+    padding: 4rem;
+  }
 }
 .heroImgCont {
   width: 100%;
   height: 55rem;
   position: relative;
-  padding: 4rem 10rem;
+  padding: 4rem 15rem;
+  margin-bottom: 3rem;
+}
+.heroImg {
+  object-fit: contain;
+  width: 100%;
+  position: relative;
 }
 .stories {
+  display: flex;
+  flex-direction: column;
+  & h1 {
+    font-size: 3rem;
+    font-family: $font-averia;
+    color: $light-blue;
+    margin-bottom: 4rem;
+  }
+}
+.storiesGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(20rem, auto);
+  gap: 3.5rem;
+  grid-template-areas:
+    'main main main main'
+    'main main main main'
+    'secondary secondary secondary secondary'
+    'secondary secondary secondary secondary'
+    'tertiary tertiary tertiary tertiary'
+    'tertiary tertiary tertiary tertiary';
+  @media only screen and (min-width: 56.25em) {
+    grid-auto-rows: minmax(16rem, auto);
+
+    grid-template-areas:
+      'main main secondary secondary'
+      'main main secondary secondary'
+      'main main tertiary tertiary'
+      'main main tertiary tertiary';
+  }
+}
+.mainCard {
+  grid-area: main;
+  background-color: $white;
+  padding: 2.8rem;
+}
+.mainImg {
+  width: 100%;
+  height: 37.5rem;
+  position: relative;
+  background-color: cadetblue;
+}
+.mainText {
+  font-family: $font-averia;
+  & h1 {
+    font-size: 4rem;
+    font-weight: bold;
+    font-style: normal;
+    margin: 1rem 0 0 0;
+    line-height: 4.8rem;
+  }
+  & h3 {
+    font-size: 2.2rem;
+    line-height: 2.7rem;
+    font-weight: bold;
+    font-style: normal;
+    color: $color-secondary;
+    margin: 0;
+  }
+  & h5 {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    font-weight: bold;
+    font-style: normal;
+  }
+  & p {
+    text-indent: 4rem;
+    padding: 2rem;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    margin: 0;
+  }
+}
+.readMore {
+  display: flex;
+  align-content: center;
+  justify-content: flex-end;
+  color: $dark-blue;
+}
+.btn {
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  font-weight: bold;
+  font-style: normal;
+  border: 0.3rem solid $dark-blue;
+  padding: 0.5rem 1rem !important;
+  text-transform: uppercase;
+  position: relative;
+  transition: all 1s ease;
+  position: relative;
+  &:hover {
+    background: $dark-blue;
+    color: $white;
+    border: $light-blue;
+    line-height: 1.8rem;
+    padding: 0.5rem 1rem !important;
+  }
+}
+
+.storyCard {
+  padding: 2rem;
+  display: flex;
+}
+.storyImg {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  background-color: rgb(3, 33, 34);
+}
+.storyText {
+  font-family: $font-averia;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 50%;
+  & h1 {
+    font-size: 3.2rem;
+    margin: 0;
+    margin-bottom: 1rem;
+    line-height: 2.2rem;
+    font-weight: bold;
+    font-style: normal;
+  }
+  & h3 {
+    font-weight: bold;
+    font-style: normal;
+    font-size: 2.2rem;
+    line-height: 2.7rem;
+  }
+  & h5 {
+    font-size: 1.8rem;
+    line-height: 2.2rem;
+    font-weight: bold;
+    font-style: normal;
+  }
+  & p {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1.2rem;
+    line-height: 2.2rem;
+    margin: 0;
+    text-indent: 2rem;
+    padding: 1rem;
+  }
+  @include respond(tab-port) {
+    & p {
+      font-size: 2rem;
+    }
+  }
+}
+.storySecondary {
+  grid-area: secondary;
+  background-color: $white;
+}
+.storyTertiary {
+  grid-area: tertiary;
+  background-color: $white;
+}
+.viewMoreBtn {
+  margin: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & button {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 1.5rem 4rem;
+    border-radius: 25rem;
+    border: none;
+    color: $white;
+    cursor: pointer;
+    background-color: $color-secondary;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+    position: relative;
+    transition: 0.3s ease-in-out;
+    &:hover {
+      transform: scale(0.95);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    }
+  }
+}
+.blog {
+  margin-bottom: 10rem;
   & h1 {
     font-size: 3rem;
     font-family: $font-averia;
     color: $light-blue;
   }
 }
-.blog {
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(20rem, auto);
+  gap: 3.5rem;
+  grid-template-areas:
+    'main main main main'
+    'main main main main'
+    'one one two two'
+    'four four three three';
+  @media only screen and (min-width: 56.25em) {
+    grid-auto-rows: minmax(14rem, auto);
+
+    grid-template-areas:
+      'main main one two'
+      'main main one two'
+      'main main three four'
+      'main main three four';
+  }
+  @include respond(phone) {
+    grid-template-areas:
+    'main main main main'
+    'main main main main'
+    'one one one one'
+    'two two two two'
+    'three three three three'
+    'four four four four'
+  }
+}
+.blogMain {
+  grid-area: main;
+  background-color: chartreuse;
+}
+.blogCard {
+  padding: 2rem;
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  @include respond(tab-port) {
+    flex-direction: row;
+  }
+}
+.blogCardImg {
+  width: 100%;
+  height: 70%;
+  background-color: $light-blue;
+  @include respond(tab-port) {
+    height: 100%;
+    width: 60%;
+  }
+}
+.blogText {
+  // height: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-items: flex-start;
+  justify-content: space-evenly;
+  align-content: space-between;
+  padding: 1rem;
   & h1 {
-    font-size: 3rem;
-    font-family: $font-averia;
-    color: $light-blue;
+    font-size: 2.4rem;
+    margin: 0;
+  }
+  & h3 {
+    font-size: 1.8rem;
+  }
+  & div {
+    display: flex;
+    justify-content: space-between;
+    // align-items: center;
+    @include respond(laptop) {
+      flex-direction: column;
+      & button {
+        margin-top: 1.5rem;
+      }
+    }
+    & button {
+      font-size: 1.2rem !important;
+      padding: .4rem !important;
+    }
+  }
+}
+.one {
+  grid-area: one;
+}
+.two {
+  grid-area: two;
+}
+.three {
+  grid-area: three;
+}
+.four {
+  grid-area: four;
+}
+.darkBlue {
+  & button {
+      background-color: $dark-blue !important;
   }
 }
