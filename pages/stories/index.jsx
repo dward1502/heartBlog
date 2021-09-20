@@ -103,8 +103,40 @@ const StoriesPage = () => {
             </div>
           </div>
         </div>
-        <div className={styles.two}></div>
-        <div className={styles.three}></div>
+        <div className={`${styles.two} ${styles.smallCard}`}>
+          <div className={styles.smallImg}></div>
+          <div className={styles.smallText}>
+            <h1>Title</h1>
+            <h3>09/05/2021</h3>
+            <h5>Username</h5>
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam
+              adipisci, omnis sit in qui quas libero eligendi! Itaque mollitia
+              id quibusdam distinctio pariatur debitis, aliquam ratione dolores
+              natus eligendi perferendis.
+            </p>
+            <div className={styles.readMore}>
+              <button className={styles.btn}>Read More</button>
+            </div>
+          </div>
+        </div>
+        <div className={`${styles.three} ${styles.smallCard}`}>
+          <div className={styles.smallImg}></div>
+          <div className={styles.smallText}>
+            <h1>Title</h1>
+            <h3>09/05/2021</h3>
+            <h5>Username</h5>
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam
+              adipisci, omnis sit in qui quas libero eligendi! Itaque mollitia
+              id quibusdam distinctio pariatur debitis, aliquam ratione dolores
+              natus eligendi perferendis.
+            </p>
+            <div className={styles.readMore}>
+              <button className={styles.btn}>Read More</button>
+            </div>
+          </div>
+        </div>
       </section>
     </Fragment>
   );
