@@ -47,12 +47,12 @@ const navigation = () => {
               </Link>
             </li>
             <li onClick={closeMobileMenu}>
-              <Link href='/blog/all-posts'>
+              <Link href='/blog'>
                 <a>Blog</a>
               </Link>
             </li>
             <li onClick={loginModalHandler}>
-              <a>Login</a>
+              <a>Sign Up</a>
             </li>
           </ul>
         </nav>
@@ -61,7 +61,7 @@ const navigation = () => {
           <span>
             <FaUserCircle />
           </span>
-          <p onClick={loginModalHandler}>Login</p>
+          <p onClick={loginModalHandler}>Sign Up</p>
         </div>
         <div className={styles.burgerBtn} onClick={handleClick}>
           {click ? <FaTimes /> : <FaBars />}

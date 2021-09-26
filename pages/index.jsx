@@ -1,10 +1,18 @@
 import { Fragment } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from '../sass/Home.module.scss';
+import {getRecentPosts2to4, getTopPost } from '../lib/posts_util';
+import MainCard from '../components/home/mainCard';
+import BlogSmallCard from '../components/home/blogSmallCards';
 
-export default function Home() {
+function HomePage(props) {
   const heroImg = '/images/heart&ekgTransparent.webp';
+  const topBlog = props.topBlogPost;
+  const recentBlogPosts = props.recentBlogPosts;
+  console.log(recentBlogPosts);
+
   return (
     <Fragment>
       <section className={styles.heroText}>
@@ -79,75 +87,50 @@ export default function Home() {
           </div>
         </div>
         <div className={styles.viewMoreBtn}>
-          <button>View More</button>
+          <Link href='/stories'>
+            <a>View More</a>
+          </Link>
         </div>
       </section>
       <section className={styles.blog}>
         <h1>BI-WEEKLY BLOG</h1>
         <div className={styles.blogGrid}>
           <div className={styles.blogMain}>
-            <div className={styles.mainCard}>
-              <div className={styles.mainImg}></div>
-              <div className={styles.mainText}>
-                <h1>Title</h1>
-                <h3>09/05/2021</h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Sapiente fugiat, nulla molestiae impedit veritatis obcaecati
-                  deserunt iste tenetur consequuntur sed tempore ducimus at quis
-                  eos ex nihil vitae fuga doloribus.
-                </p>
-                <div className={styles.readMore}>
-                  <button className={styles.btn}>Read More</button>
-                </div>
-              </div>
-            </div>
+            <MainCard data={topBlog} />
           </div>
           <div className={`${styles.blogCard} ${styles.one} `}>
-            <div className={styles.blogCardImg}></div>
-            <div className={styles.blogText}>
-              <h1>Title</h1>
-              <div>
-                <h3>09/05/2021</h3>
-                <button className={styles.btn}>Read More</button>
-              </div>
-            </div>
+            <BlogSmallCard data={recentBlogPosts[0]} />
           </div>
           <div className={`${styles.blogCard} ${styles.two} `}>
-            <div className={styles.blogCardImg}></div>
-            <div className={styles.blogText}>
-              <h1>Title</h1>
-              <div>
-                <h3>09/05/2021</h3>
-                <button className={styles.btn}>Read More</button>
-              </div>
-            </div>
+            <BlogSmallCard data={recentBlogPosts[1]} />
           </div>
           <div className={`${styles.blogCard} ${styles.three} `}>
-            <div className={styles.blogCardImg}></div>
-            <div className={styles.blogText}>
-              <h1>Title</h1>
-              <div>
-                <h3>09/05/2021</h3>
-                <button className={styles.btn}>Read More</button>
-              </div>
-            </div>
+            <BlogSmallCard data={recentBlogPosts[2]} />
           </div>
           <div className={`${styles.blogCard} ${styles.four} `}>
-            <div className={styles.blogCardImg}></div>
-            <div className={styles.blogText}>
-              <h1>Title</h1>
-              <div>
-                <h3>09/05/2021</h3>
-                <button className={styles.btn}>Read More</button>
-              </div>
-            </div>
+            <BlogSmallCard data={recentBlogPosts[3]} />
           </div>
         </div>
         <div className={`${styles.viewMoreBtn} ${styles.darkBlue}`}>
-          <button>View More</button>
+          <Link href='/blog'>
+            <a>View More</a>
+          </Link>
         </div>
       </section>
     </Fragment>
   );
 }
+
+export function getStaticProps() {
+  const topBlogPost = getTopPost()
+  const recentBlogPosts = getRecentPosts2to4();
+
+  return {
+    props: {
+      topBlogPost: topBlogPost,
+      recentBlogPosts: recentBlogPosts,
+    },
+  };
+}
+
+export default HomePage;

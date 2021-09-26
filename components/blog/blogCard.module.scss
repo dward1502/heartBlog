@@ -1,75 +1,6 @@
 @import '../../sass/variables';
 @import '../../sass/mixins';
 
-.aboutBox {
-  width: 100%;
-  //   height: 60rem;
-  padding: 6rem;
-  @include respond(tab-port) {
-    padding: 6rem 0.2rem;
-  }
-}
-.container {
-  width: 100%;
-  height: 100%;
-  background-color: rgb(218, 218, 218);
-  border-radius: 8rem;
-  box-shadow: 1rem 1rem 3rem rgba($color: #000000, $alpha: 1.0);
-  display: flex;
-  @include respond(phone-md) {
-    flex-direction: column;
-  }
-}
-.imgContAbt {
-  width: 40%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  @include respond(phone-md) {
-    width: 100%;
-  }
-}
-.image {
-  background-color: rgba(137, 43, 226, 0.315);
-  width: 30rem;
-  height: 30rem;
-  border-radius: 50%;
-  position: relative;
-    overflow: hidden;
-
-  @include respond(laptop) {
-    width: 20rem;
-    height: 20rem;
-  }
-}
-.aboutText {
-  width: 50%;
-  height: 100%;
-  padding: 4rem;
-  font-family: $font-averia;
-  line-height: 2.4rem;
-  font-size: 2rem;
-  color: $black;
-  & p {
-    text-indent: 4rem;
-  }
-  @include respond(laptop) {
-    font-size: 1.6rem;
-    line-height: 2rem;
-  }
-  @include respond(phone-md) {
-    width: 100%;
-  }
-}
-.recentPostCont {
-  width: 100%;
-//   background-color: brown;
-  padding: 10rem 15rem;
-  @include respond(phone-md ) {
-      padding: 10rem 0rem;
-  }
-}
 .recentPosts {
   width: 100%;
   background-color: $white;
@@ -148,6 +79,8 @@
   position: relative;
   transition: all 1s ease;
   position: relative;
+  text-decoration: none;
+  color: $dark-blue;
   &:hover {
     background: $dark-blue;
     color: $white;
@@ -164,15 +97,15 @@
 }
 .card {
   background-color: $white;
-  height: 40rem;
+  height: 45rem;
   width: 100%;
   padding: 2.5rem;
    & h1 {
-    font-size: 3.5rem;
+    font-size: 2.6rem;
     font-weight: bold;
     font-style: normal;
     margin: 1rem 0 0 0;
-    line-height: 4.8rem;
+    line-height: 2.8rem;
   }
   & h3 {
     font-size: 2rem;
@@ -180,7 +113,7 @@
     font-weight: bold;
     font-style: normal;
     color: $color-secondary;
-    margin: 0;
+    margin: 1rem 0 0 0;
   }
 }
 .cardImgCont{
