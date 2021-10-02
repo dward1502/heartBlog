@@ -19,11 +19,11 @@
   width: 20rem;
   height: 10rem;
   position: relative;
+  
 }
 .img {
   width: 100%;
   object-fit: contain;
-  cursor: pointer;
 }
 .list {
   display: flex;
@@ -38,7 +38,7 @@
       text-transform: uppercase;
     }
   }
-  & li:nth-child(3) {
+  & li:nth-child(4) {
       display: none;
   }
   @include respond(phone-md) {
@@ -71,7 +71,7 @@
     //   color: $light-blue;
     //   text-transform: uppercase;
   }
-  & li:nth-child(3) {
+  & li:nth-child(4) {
       display: block;
   }
 }

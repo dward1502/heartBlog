@@ -1,26 +1,31 @@
-import {useState, Fragment} from 'react'
+import { useState, Fragment } from 'react';
+import { useSession, signOut } from 'next-auth/client';
 
 import Image from 'next/image';
 import Link from 'next/link';
-import {FaUserCircle, FaBars, FaTimes} from 'react-icons/fa'
+import { FaUserCircle, FaBars, FaTimes } from 'react-icons/fa';
 import styles from './navigation.module.scss';
 import Modal from '../Modal/modalOverlay';
 
 const navigation = () => {
-    const [modal, setModal] = useState()
-    const [click,setClick] = useState(false)
+  const [modal, setModal] = useState();
+  const [click, setClick] = useState(false);
+  const [session,loading] = useSession();
 
-    const handleClick = () => setClick(!click)
-    const closeMobileMenu = () => setClick(false)
+  const handleClick = () => setClick(!click);
+  const closeMobileMenu = () => setClick(false);
 
-    const loginModalHandlerNull = () => {
-      setModal(null)
-    }
+  const loginModalHandlerNull = () => {
+    setModal(null);
+  };
 
-    const loginModalHandler = () => {
-        console.log('Initiate modal');
-        setModal(true)
-    }
+  const loginModalHandler = () => {
+    console.log('Initiate modal');
+    setModal(true);
+  };
+  const logoutHandler = () => {
+    signOut()
+  }
 
   return (
     <Fragment>
@@ -28,19 +33,20 @@ const navigation = () => {
       <header className={styles.header}>
         <nav>
           <div className={styles.logo}>
-            <Link href='/'>
-              <a>
-                <Image
-                  src='/images/heartEKGlogo.webp'
-                  alt='Heart EKG Logo'
-                  layout='fill'
-                  className={styles.img}
-                />
-              </a>
-            </Link>
+            <Image
+              src='/images/heartEKGlogo.webp'
+              alt='Heart EKG Logo'
+              layout='fill'
+              className={styles.img}
+            />
           </div>
           <ul
             className={click ? `${styles.list} ${styles.active}` : styles.list}>
+            <li onClick={closeMobileMenu}>
+              <Link href='/'>
+                <a>Home</a>
+              </Link>
+            </li>
             <li onClick={closeMobileMenu}>
               <Link href='/stories'>
                 <a>Stories</a>
@@ -51,9 +57,16 @@ const navigation = () => {
                 <a>Blog</a>
               </Link>
             </li>
-            <li onClick={loginModalHandler}>
-              <a>Sign Up</a>
-            </li>
+            {!session && !loading && (
+              <li onClick={loginModalHandler}>
+                <a>Login</a>
+              </li>
+            )}
+            {session && (
+              <li onClick={logoutHandler}>
+                <a>Logout</a>
+              </li>
+            )}
           </ul>
         </nav>
         <div
@@ -61,7 +74,16 @@ const navigation = () => {
           <span>
             <FaUserCircle />
           </span>
-          <p onClick={loginModalHandler}>Sign Up</p>
+          {!session && !loading && (
+            <p onClick={loginModalHandler}>
+              <a>Login</a>
+            </p>
+          )}
+          {session && (
+            <p onClick={logoutHandler}>
+              <a>Logout</a>
+            </p>
+          )}
         </div>
         <div className={styles.burgerBtn} onClick={handleClick}>
           {click ? <FaTimes /> : <FaBars />}

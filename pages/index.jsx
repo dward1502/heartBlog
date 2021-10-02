@@ -11,7 +11,6 @@ function HomePage(props) {
   const heroImg = '/images/heart&ekgTransparent.webp';
   const topBlog = props.topBlogPost;
   const recentBlogPosts = props.recentBlogPosts;
-  console.log(recentBlogPosts);
 
   return (
     <Fragment>

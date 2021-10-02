@@ -1,4 +1,5 @@
 @import '../../sass/variables';
+@import '../../sass/mixins';
 
 .backdrop {
   position: fixed;
@@ -11,13 +12,250 @@
 }
 .modal {
   position: fixed;
-  top: 10vh;
+  top: 20vh;
   left: 10%;
   width: 80%;
+  height: 60vh;
   z-index: 100;
   overflow: hidden;
   background-color: $white;
-  padding: 3rem;
   max-height: 100vh;
   overflow-y: auto;
+  font-family: $font-averia;
+  font-size: 1.8rem;
+  border-radius: 0.7rem;
+}
+.container {
+  background-color: rgb(211, 211, 211);
+  border-radius: 0.7rem;
+  box-shadow: 0 0.9rem 1.7rem rgba(0, 0, 0, 0.25),
+    0 0.7rem 0.7rem rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  @include respond(phone) {
+    flex-direction: column;
+  }
+}
+.containerLogin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $white;
+  width: 50%;
+  height: 100%;
+
+  & h1 {
+    margin: 1.5rem 0;
+    color: $dark-blue;
+  }
+  @include respond(phone) {
+    width: 100%;
+  }
+}
+.input {
+  margin: 0.8rem 0;
+  border-radius: 0.6rem;
+  border: 0.2rem solid $light-blue;
+  box-shadow: 0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.45);
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  width: 25rem;
+}
+.btn {
+  margin: 2rem 0;
+  padding: 0.9rem 5rem;
+  line-height: 1.8rem;
+  font-size: 1.8rem;
+  border: none;
+  background-color: $light-blue;
+  color: $white;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.containerSignup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: $white;
+  width: 50%;
+  height: 100%;
+
+  & h1 {
+    margin: 4rem 0;
+    color: $dark-blue;
+  }
+  @include respond(phone) {
+    width: 100%;
+  }
+}
+.inactive {
+  display: none;
+}
+.facebook {
+  color: #4267b2;
+  position: absolute;
+  margin-top: 1.1rem;
+  margin-left: 1.1rem;
+}
+
+.socialLogin {
+}
+.googleBtn {
+  background-color: $google-blue;
+  border-radius: 0.2rem;
+  box-shadow: 0 0.3rem 0.4rem 0 rgba(0, 0, 0, 0.25);
+  height: 4.2rem;
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  &:hover {
+    box-shadow: 0 0 0.6rem $google-blue;
+  }
+  &:active {
+    background: $google-active-blue;
+  }
+}
+.iconWrapper {
+  // position:absolute;
+  margin: 0.1rem 0rem 0rem 0.1rem;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.2rem;
+  background-color: $white;
+}
+.google {
+  position: absolute;
+  margin-top: 1.1rem;
+  margin-left: 1.1rem;
+}
+.btnText {
+  padding-left: 1rem;
+  margin: 1.1rem 1.1rem 0 0;
+  color: $white;
+  font-size: 1.2rem;
+  letter-spacing: 0.2rem;
+  font-family: $font-roboto;
+}
+.facebookBtn {
+  background-color: #4267b2;
+  border-radius: 0.2rem;
+  box-shadow: 0 0.3rem 0.4rem 0 rgba(0, 0, 0, 0.25);
+  height: 4.2rem;
+  display: flex;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  &:hover {
+    box-shadow: 0 0 0.6rem #4267b2;
+  }
+  &:active {
+    background: $google-active-blue;
+  }
+}
+.separator {
+  width: 50%;
+  text-align: center;
+  border-bottom: 1px solid #5a5a5a;
+  line-height: .1em;
+  margin: 1rem 0 2rem;
+  & span {
+    background: $white;
+    padding: 0 1rem;
+  }
+}
+
+.overlay {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: radial-gradient(
+      circle at 67% 83%,
+      rgba(68, 148, 175, 0.25) 0%,
+      rgba(68, 148, 175, 0.25) 1%,
+      transparent 1%,
+      transparent 5%,
+      transparent 5%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 24% 80%,
+      rgba(68, 148, 175, 0.25) 0%,
+      rgba(68, 148, 175, 0.25) 27%,
+      transparent 27%,
+      transparent 63%,
+      transparent 63%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 23% 5%,
+      rgba(68, 148, 175, 0.25) 0%,
+      rgba(68, 148, 175, 0.25) 26%,
+      transparent 26%,
+      transparent 82%,
+      transparent 82%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 21% 11%,
+      rgba(68, 148, 175, 0.25) 0%,
+      rgba(68, 148, 175, 0.25) 35%,
+      transparent 35%,
+      transparent 45%,
+      transparent 45%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 10% 11%,
+      rgba(68, 148, 175, 0.25) 0%,
+      rgba(68, 148, 175, 0.25) 21%,
+      transparent 21%,
+      transparent 81%,
+      transparent 81%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 19% 61%,
+      rgba(68, 148, 175, 0.25) 0%,
+      rgba(68, 148, 175, 0.25) 20%,
+      transparent 20%,
+      transparent 61%,
+      transparent 61%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 13% 77%,
+      rgba(68, 148, 175, 0.25) 0%,
+      rgba(68, 148, 175, 0.25) 63%,
+      transparent 63%,
+      transparent 72%,
+      transparent 72%,
+      transparent 100%
+    ),
+    radial-gradient(
+      circle at 30% 93%,
+      rgba(68, 148, 175, 0.25) 0%,
+      rgba(68, 148, 175, 0.25) 33%,
+      transparent 33%,
+      transparent 82%,
+      transparent 82%,
+      transparent 100%
+    ),
+    linear-gradient(270deg, rgb(161, 63, 54), rgb(36, 22, 21));
+  @include respond(phone) {
+    width: 100%;
+  }
+}
+.imgCont {
+  position: relative;
+  width: 30rem;
+  height: 15rem;
 }

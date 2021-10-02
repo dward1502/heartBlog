@@ -59,6 +59,12 @@
     background-color: $light-blue;
     color: $white;
     margin-bottom: 6.5rem;
+    cursor: pointer;
+
+    &:disabled {
+      background-color:#4494af5b ;
+      cursor:default;
+    }
   }
 }
 .dualStoriesGrid {

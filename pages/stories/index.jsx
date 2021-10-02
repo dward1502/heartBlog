@@ -1,9 +1,13 @@
-import { Fragment } from 'react';
+import { Fragment} from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import {useSession} from 'next-auth/client';
 
 import styles from './stories.module.scss';
 
 const StoriesPage = () => {
+  const [session,loading ] = useSession();
+
   return (
     <Fragment>
       <section className={styles.hero}>
@@ -38,11 +42,28 @@ const StoriesPage = () => {
       </section>
       <div className={styles.title}>
         <h1>OUR STORIES</h1>
-        <button>ADD STORY</button>
+        {!session && !loading && (
+          <Link href='/add_story'>
+            <button disabled>Add Story</button>
+          </Link>
+        )}
+        {session && (
+          <Link href='/add_story'>
+            <button>Add Story</button>
+          </Link>
+        )}
       </div>
       <section className={styles.dualStoriesGrid}>
         <div className={styles.mainCard}>
-          <div className={styles.imgCont}></div>
+          <div className={styles.imgCont}>
+            <Image
+              src='https://images.unsplash.com/photo-1518811554972-31f9ca219d5b?crop=entropy&cs=tinysrg
+b&fit=max&fm=jpg&ixid=MnwyNjMyNTh8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MzI3Njk5Nzg&ixlib=rb-1.2.1&q=80&w=10
+80'
+              alt='title'
+              layout='fill'
+            />
+          </div>
           <div className={styles.mainText}>
             <h1>Title</h1>
             <h3>09/05/2021</h3>
