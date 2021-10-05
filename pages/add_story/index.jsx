@@ -11,6 +11,14 @@ const index = (props) => {
 
   const username = props.session.user.name;
 
+  if(!username) {
+    return (
+      <div className={styles.center}>
+        <p>Need to login or signup to post a story.</p>
+      </div>
+    )
+  }
+
   function submitStoryHandler(event) {
     event.preventDefault();
     axios

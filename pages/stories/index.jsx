@@ -1,11 +1,17 @@
-import { Fragment} from 'react';
-import Image from 'next/image';
+import { Fragment} from 'react';import Image from 'next/image';
 import Link from 'next/link';
 import {useSession} from 'next-auth/client';
 import styles from './stories.module.scss';
+import { connectToDatabase } from '../../lib/db';
+// import { getAllStories } from '../../lib/stories_util';
 
-const StoriesPage = () => {
+const StoriesPage = (props) => {
   const [session,loading ] = useSession();
+ 
+  const allStories = props.stories
+  console.log(allStories);
+
+ 
 
 
   return (
@@ -162,5 +168,17 @@ b&fit=max&fm=jpg&ixid=MnwyNjMyNTh8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MzI3Njk5Nzg&ixlib=
     </Fragment>
   );
 };
+
+export async function getStaticProps() {
+  const client = await connectToDatabase()
+  const db = client.db()
+
+  const stories = await db.collection('stories').find().sort({_id:-1}).toArray()
+  return {
+    props:{
+      stories: JSON.parse(JSON.stringify(stories))
+    }
+  }
+}
 
 export default StoriesPage;
