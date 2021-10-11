@@ -117,6 +117,32 @@
   align-content: center;
   justify-content: flex-end;
   color: $dark-blue;
+  margin-top: 3rem;
+  & a {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    font-weight: bold;
+    font-style: normal;
+    border: 0.3rem solid $dark-blue;
+    padding: 0.5rem 1rem !important;
+    text-transform: uppercase;
+    position: relative;
+    transition: all 1s ease;
+    position: relative;
+    text-decoration: none;
+    color: $dark-blue;
+    &:hover {
+      background: $dark-blue;
+      color: $white;
+      border: $light-blue;
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+      font-weight: bold;
+      font-style: normal;
+      border: 0.3rem solid $dark-blue;
+      padding: 0.5rem 1rem !important;
+    }
+  }
 }
 .btn {
   font-size: 1.4rem;
@@ -133,7 +159,11 @@
     background: $dark-blue;
     color: $white;
     border: $light-blue;
+    font-size: 1.4rem;
     line-height: 1.8rem;
+    font-weight: bold;
+    font-style: normal;
+    border: 0.3rem solid $dark-blue;
     padding: 0.5rem 1rem !important;
   }
 }
@@ -156,7 +186,7 @@
   justify-content: flex-start;
   width: 50%;
   & h1 {
-    font-size: 3.2rem;
+    font-size: 2.9rem;
     margin: 0;
     margin-bottom: 1rem;
     line-height: 2.2rem;
@@ -166,11 +196,12 @@
   & h3 {
     font-weight: bold;
     font-style: normal;
-    font-size: 2.2rem;
+    font-size: 2rem;
     line-height: 2.7rem;
+    color: $color-secondary;
   }
   & h5 {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     line-height: 2.2rem;
     font-weight: bold;
     font-style: normal;
@@ -178,7 +209,7 @@
   & p {
     font-style: normal;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 2.2rem;
     margin: 0;
     text-indent: 2rem;
@@ -207,6 +238,7 @@
     font-size: 2.5rem;
     font-weight: bold;
     text-transform: uppercase;
+    text-decoration: none;
     padding: 1.5rem 4rem;
     border-radius: 25rem;
     border: none;
@@ -251,12 +283,12 @@
   }
   @include respond(phone) {
     grid-template-areas:
-    'main main main main'
-    'main main main main'
-    'one one one one'
-    'two two two two'
-    'three three three three'
-    'four four four four'
+      'main main main main'
+      'main main main main'
+      'one one one one'
+      'two two two two'
+      'three three three three'
+      'four four four four';
   }
 }
 .blogMain {
@@ -308,7 +340,7 @@
     }
     & button {
       font-size: 1.2rem !important;
-      padding: .4rem !important;
+      padding: 0.4rem !important;
     }
   }
 }
@@ -326,6 +358,6 @@
 }
 .darkBlue {
   & a {
-      background-color: $dark-blue !important;
+    background-color: $dark-blue !important;
   }
 }

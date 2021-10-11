@@ -1,18 +1,15 @@
-import { Fragment} from 'react';import Image from 'next/image';
+import { Fragment } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
-import {useSession} from 'next-auth/client';
+import { useSession } from 'next-auth/client';
 import styles from './stories.module.scss';
 import { connectToDatabase } from '../../lib/db';
 // import { getAllStories } from '../../lib/stories_util';
 
 const StoriesPage = (props) => {
-  const [session,loading ] = useSession();
- 
-  const allStories = props.stories
-  console.log(allStories);
+  const [session, loading] = useSession();
 
- 
-
+  const allStories = props.stories;
 
   return (
     <Fragment>
@@ -60,125 +57,50 @@ const StoriesPage = (props) => {
         )}
       </div>
       <section className={styles.dualStoriesGrid}>
-        <div className={styles.mainCard}>
-          <div className={styles.imgCont}>
-            <Image
-              src='https://images.unsplash.com/photo-1518811554972-31f9ca219d5b?crop=entropy&cs=tinysrg
-b&fit=max&fm=jpg&ixid=MnwyNjMyNTh8MHwxfHJhbmRvbXx8fHx8fHx8fDE2MzI3Njk5Nzg&ixlib=rb-1.2.1&q=80&w=10
-80'
-              alt='title'
-              layout='fill'
-            />
-          </div>
-          <div className={styles.mainText}>
-            <h1>Title</h1>
-            <h3>09/05/2021</h3>
-            <h5>Username</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
-              corrupti earum quam eius officia ad? Cupiditate consectetur veniam
-              eos laboriosam quas voluptatum repellat minus voluptate assumenda
-              recusandae? Hic consequatur, labore maxime laboriosam
-              exercitationem sed eligendi alias harum numquam iste? Velit nam
-              deserunt sunt necessitatibus accusamus voluptates aut expedita!
-              Dicta, quo.
-            </p>
-            <div className={styles.readMore}>
-              <button className={styles.btn}>Read More</button>
-            </div>
-          </div>
-        </div>
-        <div className={styles.mainCard}>
-          <div className={styles.imgCont}></div>
-          <div className={styles.mainText}>
-            <h1>Title</h1>
-            <h3>09/05/2021</h3>
-            <h5>Username</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
-              corrupti earum quam eius officia ad? Cupiditate consectetur veniam
-              eos laboriosam quas voluptatum repellat minus voluptate assumenda
-              recusandae? Hic consequatur, labore maxime laboriosam
-              exercitationem sed eligendi alias harum numquam iste? Velit nam
-              deserunt sunt necessitatibus accusamus voluptates aut expedita!
-              Dicta, quo.
-            </p>
-            <div className={styles.readMore}>
-              <button className={styles.btn}>Read More</button>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section className={styles.threeStoriesGrid}>
-        <div className={`${styles.one} ${styles.mainCard}`}>
-          <div className={styles.imgCont}></div>
-          <div className={styles.mainText}>
-            <h1>Title</h1>
-            <h3>09/05/2021</h3>
-            <h5>Username</h5>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
-              corrupti earum quam eius officia ad? Cupiditate consectetur veniam
-              eos laboriosam quas voluptatum repellat minus voluptate assumenda
-              recusandae? Hic consequatur, labore maxime laboriosam
-              exercitationem sed eligendi alias harum numquam iste? Velit nam
-              deserunt sunt necessitatibus accusamus voluptates aut expedita!
-              Dicta, quo.
-            </p>
-            <div className={styles.readMore}>
-              <button className={styles.btn}>Read More</button>
-            </div>
-          </div>
-        </div>
-        <div className={`${styles.two} ${styles.smallCard}`}>
-          <div className={styles.smallImg}></div>
-          <div className={styles.smallText}>
-            <h1>Title</h1>
-            <h3>09/05/2021</h3>
-            <h5>Username</h5>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam
-              adipisci, omnis sit in qui quas libero eligendi! Itaque mollitia
-              id quibusdam distinctio pariatur debitis, aliquam ratione dolores
-              natus eligendi perferendis.
-            </p>
-            <div className={styles.readMore}>
-              <button className={styles.btn}>Read More</button>
-            </div>
-          </div>
-        </div>
-        <div className={`${styles.three} ${styles.smallCard}`}>
-          <div className={styles.smallImg}></div>
-          <div className={styles.smallText}>
-            <h1>Title</h1>
-            <h3>09/05/2021</h3>
-            <h5>Username</h5>
-            <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veniam
-              adipisci, omnis sit in qui quas libero eligendi! Itaque mollitia
-              id quibusdam distinctio pariatur debitis, aliquam ratione dolores
-              natus eligendi perferendis.
-            </p>
-            <div className={styles.readMore}>
-              <button className={styles.btn}>Read More</button>
-            </div>
-          </div>
-        </div>
+        {allStories
+          .map((data) => {
+            return (
+              <div key={data._id} className={styles.mainCard}>
+                <div className={styles.imgCont}>
+                  <Image
+                    src={data.photo.link}
+                    alt={data.photo.description}
+                    layout='fill'
+                  />
+                </div>
+                <div className={styles.mainText}>
+                  <h1>{data.title}</h1>
+                  <h3>{data.date}</h3>
+                  <h5>{data.username}</h5>
+                  <p>{data.excerpt}</p>
+                  <div className={styles.readMore}>
+                    <Link href={`/stories/${data.storyID}`} className={styles.btn}>
+                    Read More
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
       </section>
     </Fragment>
   );
 };
 
 export async function getStaticProps() {
-  const client = await connectToDatabase()
-  const db = client.db()
+  const client = await connectToDatabase();
+  const db = client.db();
 
-  const stories = await db.collection('stories').find().sort({_id:-1}).toArray()
+  const stories = await db
+    .collection('stories')
+    .find()
+    .sort({ _id: -1 })
+    .toArray();
   return {
-    props:{
-      stories: JSON.parse(JSON.stringify(stories))
-    }
-  }
+    props: {
+      stories: JSON.parse(JSON.stringify(stories)),
+    },
+  };
 }
 
 export default StoriesPage;

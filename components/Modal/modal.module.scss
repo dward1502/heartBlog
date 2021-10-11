@@ -57,13 +57,41 @@
   }
 }
 .input {
-  margin: 0.8rem 0;
-  border-radius: 0.6rem;
-  border: 0.2rem solid $light-blue;
-  box-shadow: 0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.45);
-  padding: 0.5rem 1rem;
-  font-size: 1.5rem;
-  width: 25rem;
+  display: flex;
+  flex-direction: column;
+  & label {
+    font-size: 1.6rem;
+    font-family: $font-averia;
+    margin: 0;
+  }
+  & input {
+    margin: 0.8rem 0;
+    border-radius: 0.6rem;
+    border: 0.2rem solid $light-blue;
+    box-shadow: 0.3rem 0.3rem 0.3rem rgba(0, 0, 0, 0.45);
+    padding: 0.5rem 1rem;
+    font-size: 1.5rem;
+    width: 25rem;
+    &:focus {
+      outline: none;
+      border-color: $light-blue;
+      background: #f6edf8;
+    }
+  }
+}
+.input.invalid {
+  & label {
+    color: #b40e0e;
+  }
+  & input {
+    border-color: rgb(189, 42, 26);
+    background: #fbdada;
+  }
+}
+.errorText {
+  color: #b40e0e;
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
 }
 .btn {
   margin: 2rem 0;
@@ -73,10 +101,14 @@
   border: none;
   background-color: $light-blue;
   color: $white;
+  box-shadow: .5rem .5rem .5rem rgba(0, 0, 0, 0.75);
   text-transform: uppercase;
   font-weight: bold;
   border-radius: 1rem;
   cursor: pointer;
+    &:disabled {
+    background-color: #4494af81;
+  }
 }
 
 .containerSignup {
@@ -163,7 +195,7 @@
   width: 50%;
   text-align: center;
   border-bottom: 1px solid #5a5a5a;
-  line-height: .1em;
+  line-height: 0.1em;
   margin: 1rem 0 2rem;
   & span {
     background: $white;
