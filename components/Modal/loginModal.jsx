@@ -1,29 +1,12 @@
-import { useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import useInput from '../../hooks/use_input';
 import { signIn } from 'next-auth/client';
 // import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Notification from '../UI/notification';
 
 import styles from './modal.module.scss';
-
-async function createUser(username, email, password) {
-  const response = await axios
-    .post('/api/auth/signup', {
-      username,
-      email,
-      password,
-    })
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      if (err.response) {
-        console.log(err.res);
-      }
-    });
-  return response;
-}
 
 const isEmail = (value) => value.includes('@');
 const isNotEmpty = (value) => value.trim() !== '';
@@ -31,6 +14,22 @@ const isPassword = (value) => value.trim().length > 6;
 
 const loginModal = (props) => {
   const [loginSwitch, setLoginSwitch] = useState(true);
+  const [requestStatus, setRequestStatus] = useState();
+  const [requestError, setRequestError] = useState();
+
+  useEffect(() => {
+    if (
+      requestStatus === 'success' ||
+      requestStatus === 'error' ||
+      requestStatus === 'user exist'
+    ) {
+      const timer = setTimeout(() => {
+        setRequestStatus(null);
+        setRequestError(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [requestStatus]);
 
   const {
     value: loginEmailValue,
@@ -83,30 +82,36 @@ const loginModal = (props) => {
     formIsValid = true;
   }
 
-  // const loginEmailRef = useRef();
-  // const loginPasswordRef = useRef();
-
   async function signUpHandler(event) {
     event.preventDefault();
 
     console.log(signUpUsernameValue, signUpEmailValue, signUpPasswordValue);
-    resetSignUpUsername()
-    resetSignUpEmail()
-    resetSignUpPassword()
-    // const response = await createUser(
-    //   enteredUsername,
-    //   enteredEmail,
-    //   enteredPassword
-    // );
-    // console.log(response);
-    // props.onConfirm();
-
-    // console.log(
-    //   'Signup Button is pressed',
-    //   enteredUsername,
-    //   enteredEmail,
-    //   enteredPassword
-    // );
+    setRequestStatus('pending')
+    axios
+      .post('/api/auth/signup', {
+        username: signUpUsernameValue,
+        email: signUpEmailValue,
+        password: signUpPasswordValue,
+      })
+      .then((response) => {
+        console.log(response);
+        setRequestStatus('success')
+        const timer = setTimeout(()=>{
+           resetSignUpUsername();
+           resetSignUpEmail();
+           resetSignUpPassword();
+           props.onConfirm();
+        },3000)
+        return () => clearTimeout(timer)
+      })
+      .catch((error) => {
+        if(error.response.status === 422) {
+          setRequestError(error.response.data.message);
+          setRequestStatus('error');
+        }
+        setRequestError(error.message);
+        setRequestStatus('error');
+      });
   }
 
   async function loginHandler(event) {
@@ -116,18 +121,40 @@ const loginModal = (props) => {
       return;
     }
     console.log(loginEmailValue, loginPasswordValue);
-    resetLoginEmail();
-    resetLoginPassword();
 
-    // const result = await signIn('credentials', {
-    //   redirect: false,
-    //   email: enteredEmail,
-    //   password: enteredPassword,
-    // });
-    // // if(!result.error) {
-    // // console.log(result);
-    // // }
-    // console.log(result);
+    const result = await signIn('credentials', {
+      redirect: false,
+      email: loginEmailValue,
+      password: loginPasswordValue,
+    });
+    console.log(result);
+    if(result.error === null) {
+      setRequestStatus('login')
+      const timer = setTimeout(() => {
+        resetLoginEmail();
+        resetLoginPassword();
+        props.onConfirm();
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+    if(result.error === "No User Found!"){
+      setRequestStatus('login error');
+      const timer = setTimeout(() => {
+        resetLoginEmail();
+        resetLoginPassword();
+        setRequestStatus(null)
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+    if(result.error === 'Could not log you in!') {
+      setRequestStatus('login error')
+      const timer = setTimeout(() => {
+        resetLoginEmail();
+        resetLoginPassword();
+        setRequestStatus(null);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
   }
 
   const loginSwitchHandler = () => {
@@ -152,6 +179,51 @@ const loginModal = (props) => {
   const signUpPasswordStyles = signUpPasswordHasError
     ? `${styles.input} ${styles.invalid}`
     : styles.input;
+
+  let notification;
+
+  if (requestStatus === 'success') {
+    notification = {
+      status: 'success',
+      title: 'Success!',
+      message: 'User has been created successfully',
+    };
+  }
+  if (requestStatus === 'login') {
+    notification = {
+      status: 'login',
+      title: 'Login Success',
+      message: 'User has been logged in successfully',
+    };
+  }
+  if (requestStatus === 'error') {
+    notification = {
+      status: 'error',
+      title: 'Error in sending request ...',
+      message: requestError,
+    };
+  }
+  if (requestStatus === 'login error') {
+    notification = {
+      status: 'error',
+      title: 'Error in logging in',
+      message: 'User email or password is incorrect',
+    };
+  }
+  if (requestStatus === 'user exist') {
+    notification = {
+      status: 'user exist',
+      title: 'User exists',
+      message: 'User exists try a different email or login',
+    };
+  }
+  if (requestStatus === 'pending') {
+    notification = {
+      status: 'pending',
+      title: 'Sending User information',
+      message: 'Your request is on its way!',
+    };
+  }
 
   return (
     <div className={styles.modal}>
@@ -265,11 +337,21 @@ const loginModal = (props) => {
             )}
           </div>
 
-          <button className={styles.btn} onClick={signUpHandler} disabled={!formIsValid}>
+          <button
+            className={styles.btn}
+            onClick={signUpHandler}
+            disabled={!formIsValid}>
             SignUp
           </button>
         </div>
       </div>
+      {notification && (
+        <Notification
+          status={notification.status}
+          title={notification.title}
+          message={notification.message}
+        />
+      )}
     </div>
   );
 };

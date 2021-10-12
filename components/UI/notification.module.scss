@@ -14,6 +14,7 @@
   left: 0;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
+  font-family: $font-averia;
   z-index: 150;
   & h2 {
       font-size: 2rem;
@@ -21,11 +22,12 @@
   }
   & p {
       margin: 0;
+      font-size: 1.6rem;
   }
 }
 
 .success {
-  background-color: green;
+  background-color: rgb(7, 180, 22);
   color: rgb(43, 43, 43);
 }
 
@@ -36,7 +38,7 @@
     background-color: yellow;
 }
 .add {
-    background-color: purple;
+    background-color: rgb(7, 180, 22);
 }
 .userExist {
     background-color: tan;

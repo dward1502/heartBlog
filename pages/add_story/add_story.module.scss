@@ -57,13 +57,13 @@
   }
 }
 .textarea {
-    padding:2rem 5rem 0rem 0rem;
-    & label {
-        font-size: 2.2rem;
-        margin: 1rem 0rem;
-        color: $light-blue;
-        line-height: 2.8rem;
-    }    
+  padding: 2rem 5rem 0rem 0rem;
+  & label {
+    font-size: 2.2rem;
+    margin: 1rem 0rem;
+    color: $light-blue;
+    line-height: 2.8rem;
+  }
   & textarea {
     outline: none;
     resize: none;
@@ -71,13 +71,13 @@
     width: 100%;
     height: 70vh;
     font-size: 1.8rem;
-    border: .3rem solid $light-blue;
-    border-radius: .5rem;    
+    border: 0.3rem solid $light-blue;
+    border-radius: 0.5rem;
   }
   @include respond(phone-md) {
     margin-top: 2.5rem;
-      padding: 0; 
-    }
+    padding: 0;
+  }
 }
 .btn {
   display: flex;
@@ -94,11 +94,38 @@
     color: $white;
     text-transform: uppercase;
     cursor: pointer;
+    &:disabled {
+      background-color: #4494af90;
+    }
   }
+
   @include respond(phone-md) {
     margin-left: 3rem;
   }
 }
 .center {
   text-align: center;
+}
+.errorText {
+  color: #b40e0e;
+  margin: 0 0 1rem 0;
+  font-size: 1.6rem;
+}
+.title.invalid {
+  & label {
+    color: #b40e0e;
+  }
+  & input {
+    border-color: rgb(189, 42, 26);
+    background: #fbdada;
+  }
+}
+.textarea.invalid {
+  & label {
+    color: #b40e0e;
+  }
+  & input {
+    border-color: rgb(189, 42, 26);
+    background: #fbdada;
+  }
 }

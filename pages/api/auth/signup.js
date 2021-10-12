@@ -15,13 +15,13 @@ async function handler(req, res) {
     !email.includes('@') ||
     !username ||
     !password ||
-    password.trim().length < 7
+    password.trim().length < 6
   ) {
     res
       .status(422)
       .json({
         message:
-          'Invalid input - password should be at least 7 characters long',
+          'Invalid input - password should be at least 6 characters long'
       });
       return ;
   }
@@ -44,7 +44,7 @@ async function handler(req, res) {
     email,
     password: hashedPassword,
   });
-  res.status(201).json({message:'Created user!'})
+  res.status(201).json({message:'Created user!', data:result})
   client.close()
 }
 export default handler;

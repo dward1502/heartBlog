@@ -24,9 +24,10 @@ export default NextAuth({
           throw new Error('No User Found!');
         }
 
-        console.log(user.username)
-        const isValid = verifyPassword(credentials.password, user.password);
-
+        console.log(credentials.password);
+        console.log(user.password);
+        const isValid = await verifyPassword(credentials.password, user.password);
+        console.log(isValid)
         if (!isValid) {
           client.close();
           throw new Error('Could not log you in!');

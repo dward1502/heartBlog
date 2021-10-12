@@ -1,4 +1,4 @@
-import ReactDOM, { createPortal } from 'react-dom'
+import ReactDOM from 'react-dom'
 
 import styles from './notification.module.scss';
 
@@ -16,7 +16,7 @@ const notification = (props) => {
     if(status === 'pending') {
         statusClasses = styles.pending
     }
-    if(status === 'add'){
+    if(status === 'login'){
         statusClasses = styles.add
     }
     if(status === 'user exist') {
@@ -25,7 +25,7 @@ const notification = (props) => {
 
     const cssClasses = `${styles.notification} ${statusClasses}`
 
-    return ReactDOM,createPortal(
+    return ReactDOM.createPortal(
         <div className={cssClasses}>
             <h2>{title}</h2>
             <p>{message}</p>
