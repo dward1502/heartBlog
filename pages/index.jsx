@@ -1,6 +1,10 @@
 import { Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import {Fade, Bounce} from 'react-reveal';
+
+
+
 
 import styles from '../sass/Home.module.scss';
 import { getRecentPosts2to4, getTopPost } from '../lib/posts_util';
@@ -33,75 +37,81 @@ function HomePage(props) {
         />
       </div>
       <section className={styles.stories}>
-        <h1>TRANSPLANT STORIES</h1>
-        <div className={styles.storiesGrid}>
-          <div className={styles.mainCard}>
-            <div className={styles.mainImg}>
-              <Image
-                src={topStories[0].photo.link}
-                alt={topStories[0].photo.description}
-                layout='fill'
-              />
+        <Bounce left>
+          <h1>TRANSPLANT STORIES</h1>
+        </Bounce>
+
+        <Fade bottom duration={3000}>
+          <div className={styles.storiesGrid}>
+            <div className={styles.mainCard}>
+              <div className={styles.mainImg}>
+                <Image
+                  src={topStories[0].photo.link}
+                  alt={topStories[0].photo.description}
+                  layout='fill'
+                />
+              </div>
+              <div className={styles.mainText}>
+                <h1>{topStories[0].title}</h1>
+                <h3>{topStories[0].date}</h3>
+                <h5>{topStories[0].username}</h5>
+                <p>{topStories[0].excerpt}</p>
+                <div className={styles.readMore}>
+                  <Link
+                    href={`/stories/${topStories[0].storyID}`}
+                    className={styles.btn}>
+                    Read More
+                  </Link>
+                </div>
+              </div>
             </div>
-            <div className={styles.mainText}>
-              <h1>{topStories[0].title}</h1>
-              <h3>{topStories[0].date}</h3>
-              <h5>{topStories[0].username}</h5>
-              <p>{topStories[0].excerpt}</p>
-              <div className={styles.readMore}>
-                <Link
-                  href={`/stories/${topStories[0].storyID}`}
-                  className={styles.btn}>
-                  Read More
-                </Link>
+            <div className={`${styles.storyCard} ${styles.storySecondary}`}>
+              <div className={styles.storyImg}>
+                <Image
+                  src={topStories[1].photo.link}
+                  alt={topStories[1].photo.description}
+                  layout='fill'
+                />
+              </div>
+              <div className={styles.storyText}>
+                <h1>{topStories[1].title}</h1>
+                <h3>{topStories[1].date}</h3>
+                <h5>{topStories[1].username}</h5>
+                <p>{topStories[1].excerpt}</p>
+                <div className={styles.readMore}>
+                  <Link
+                    href={`/stories/${topStories[1].storyID}`}
+                    className={styles.btn}>
+                    Read More
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className={`${styles.storyCard} ${styles.storyTertiary}`}>
+              <div className={styles.storyImg}>
+                <Image
+                  src={topStories[2].photo.link}
+                  alt={topStories[2].photo.description}
+                  layout='fill'
+                />
+              </div>
+              <div className={styles.storyText}>
+                <h1>{topStories[2].title}</h1>
+                <h3>{topStories[2].date}</h3>
+                <h5>{topStories[2].username}</h5>
+                <p>{topStories[2].excerpt}</p>
+                <div className={styles.readMore}>
+                  <Link
+                    href={`/stories/${topStories[2].storyID}`}
+                    className={styles.btn}>
+                    Read More
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
-          <div className={`${styles.storyCard} ${styles.storySecondary}`}>
-            <div className={styles.storyImg}>
-              <Image
-                src={topStories[1].photo.link}
-                alt={topStories[1].photo.description}
-                layout='fill'
-              />
-            </div>
-            <div className={styles.storyText}>
-              <h1>{topStories[1].title}</h1>
-              <h3>{topStories[1].date}</h3>
-              <h5>{topStories[1].username}</h5>
-              <p>{topStories[1].excerpt}</p>
-              <div className={styles.readMore}>
-                <Link
-                  href={`/stories/${topStories[1].storyID}`}
-                  className={styles.btn}>
-                  Read More
-                </Link>
-              </div>
-            </div>
-          </div>
-          <div className={`${styles.storyCard} ${styles.storyTertiary}`}>
-            <div className={styles.storyImg}>
-              <Image
-                src={topStories[2].photo.link}
-                alt={topStories[2].photo.description}
-                layout='fill'
-              />
-            </div>
-            <div className={styles.storyText}>
-              <h1>{topStories[2].title}</h1>
-              <h3>{topStories[2].date}</h3>
-              <h5>{topStories[2].username}</h5>
-              <p>{topStories[2].excerpt}</p>
-              <div className={styles.readMore}>
-                <Link
-                  href={`/stories/${topStories[2].storyID}`}
-                  className={styles.btn}>
-                  Read More
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
+        </Fade>
+
         <div className={styles.viewMoreBtn}>
           <Link href='/stories'>
             <a>View More</a>
