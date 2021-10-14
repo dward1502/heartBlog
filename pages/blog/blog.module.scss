@@ -76,6 +76,7 @@
   padding: 3rem;
   display: flex;
   margin-bottom: 8rem;
+  box-shadow: -1px 3px 13px 8px rgba(35,34,34,0.75);
   @include respond(tab-port) {
       flex-direction: column;
   }
@@ -167,6 +168,7 @@
   height: 40rem;
   width: 100%;
   padding: 2.5rem;
+  box-shadow: -1px 3px 13px 8px rgba(35,34,34,0.75);
    & h1 {
     font-size: 3.5rem;
     font-weight: bold;

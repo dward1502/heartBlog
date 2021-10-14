@@ -1,16 +1,14 @@
 import { Fragment } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import {Fade, Bounce} from 'react-reveal';
-
-
-
+import { Fade, Bounce } from 'react-reveal';
+import Typewriter from 'typewriter-effect';
+import MainCard from '../components/home/mainCard';
+import BlogSmallCard from '../components/home/blogSmallCards';
 
 import styles from '../sass/Home.module.scss';
 import { getRecentPosts2to4, getTopPost } from '../lib/posts_util';
 import { getTop3Stories } from '../lib/stories_util';
-import MainCard from '../components/home/mainCard';
-import BlogSmallCard from '../components/home/blogSmallCards';
 
 function HomePage(props) {
   const heroImg = '/images/heart&ekgTransparent.webp';
@@ -21,12 +19,18 @@ function HomePage(props) {
   return (
     <Fragment>
       <section className={styles.heroText}>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi fugiat
-          animi itaque aut quia ipsa, laboriosam optio voluptatibus voluptates
-          consectetur accusantium architecto placeat rerum quaerat? Sapiente
-          minima a repellendus quasi!
-        </p>
+        <Typewriter
+          options={{
+            strings: [
+              'You have power over your mind -- not outside events. Realize this, and you will find strength. --- Marcus Aurelius',
+              'The key is to keep company only with people who uplify you, whose presence calls forth your best. --- Epictetus',
+              'The happiness of your life depends on the quality of your thoughts. --- Marcus Aurelius',
+            ],
+            autoStart: true,
+            loop: true,
+            pauseFor: 2000,
+          }}
+        />
       </section>
       <div className={styles.heroImgCont}>
         <Image
@@ -112,36 +116,44 @@ function HomePage(props) {
           </div>
         </Fade>
 
-        <div className={styles.viewMoreBtn}>
-          <Link href='/stories'>
-            <a>View More</a>
-          </Link>
-        </div>
+        <Fade duration={3000}>
+          <div className={styles.viewMoreBtn}>
+            <Link href='/stories'>
+              <a>View More</a>
+            </Link>
+          </div>
+        </Fade>
       </section>
       <section className={styles.blog}>
-        <h1>BI-WEEKLY BLOG</h1>
-        <div className={styles.blogGrid}>
-          <div className={styles.blogMain}>
-            <MainCard data={topBlog} />
+        <Bounce left>
+          <h1>BI-WEEKLY BLOG</h1>
+        </Bounce>
+        <Fade bottom duration={3000}>
+          <div className={styles.blogGrid}>
+            <div className={styles.blogMain}>
+              <MainCard data={topBlog} />
+            </div>
+            <div className={`${styles.blogCard} ${styles.one} `}>
+              <BlogSmallCard data={recentBlogPosts[0]} />
+            </div>
+            <div className={`${styles.blogCard} ${styles.two} `}>
+              <BlogSmallCard data={recentBlogPosts[1]} />
+            </div>
+            <div className={`${styles.blogCard} ${styles.three} `}>
+              <BlogSmallCard data={recentBlogPosts[2]} />
+            </div>
+            <div className={`${styles.blogCard} ${styles.four} `}>
+              <BlogSmallCard data={recentBlogPosts[3]} />
+            </div>
           </div>
-          <div className={`${styles.blogCard} ${styles.one} `}>
-            <BlogSmallCard data={recentBlogPosts[0]} />
+        </Fade>
+        <Fade duration={3000}>
+          <div className={`${styles.viewMoreBtn} ${styles.darkBlue}`}>
+            <Link href='/blog'>
+              <a>View More</a>
+            </Link>
           </div>
-          <div className={`${styles.blogCard} ${styles.two} `}>
-            <BlogSmallCard data={recentBlogPosts[1]} />
-          </div>
-          <div className={`${styles.blogCard} ${styles.three} `}>
-            <BlogSmallCard data={recentBlogPosts[2]} />
-          </div>
-          <div className={`${styles.blogCard} ${styles.four} `}>
-            <BlogSmallCard data={recentBlogPosts[3]} />
-          </div>
-        </div>
-        <div className={`${styles.viewMoreBtn} ${styles.darkBlue}`}>
-          <Link href='/blog'>
-            <a>View More</a>
-          </Link>
-        </div>
+        </Fade>
       </section>
     </Fragment>
   );

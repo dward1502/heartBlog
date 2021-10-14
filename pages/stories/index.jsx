@@ -4,7 +4,9 @@ import Link from 'next/link';
 import { useSession } from 'next-auth/client';
 import styles from './stories.module.scss';
 import { connectToDatabase } from '../../lib/db';
-// import { getAllStories } from '../../lib/stories_util';
+import {Fade, Flip} from 'react-reveal'
+
+
 
 const StoriesPage = (props) => {
   const [session, loading] = useSession();
@@ -28,23 +30,27 @@ const StoriesPage = (props) => {
               can not understand, even our loved ones. We have all at some time
               been close to death before our transplant only to be called and
               given the gift, suddenly our life has been changed drasticly. This
-              sudden change is dealth with differently by every patient and here
-              I thought it would be a good place for use to describe our stories
+              sudden change is dealt with differently by every patient and here
+              I thought it would be a good place for us to describe our story
               and share our adventures.
             </p>
             <p>
               Anyone can add a story regarding their journey all that needs to
               be done is sign up / login and the ADD STORY button will be
-              available. There you will fill out your story, add a picture and
-              post the story for others to read and see. Comment on stories that
-              move you, and hopefully we can grow with our experience as well as
-              others
+              available to click. There you will fill out your story, choose a
+              picture theme and post the story for others to read and see.
+              Comment on stories that move you, and hopefully we can grow by
+              reading other experiences and realize we have many things in
+              common with each other.
             </p>
           </div>
         </div>
       </section>
       <div className={styles.title}>
-        <h1>OUR STORIES</h1>
+        <Flip top>
+          <h1>OUR STORIES</h1>
+        </Flip>
+
         {!session && !loading && (
           <Link href='/add_story'>
             <button disabled>Add Story</button>
@@ -57,10 +63,10 @@ const StoriesPage = (props) => {
         )}
       </div>
       <section className={styles.dualStoriesGrid}>
-        {allStories
-          .map((data) => {
-            return (
-              <div key={data._id} className={styles.mainCard}>
+        {allStories.map((data) => {
+          return (
+            <Fade left duration={1500} key={data._id}>
+              <div className={styles.mainCard}>
                 <div className={styles.imgCont}>
                   <Image
                     src={data.photo.link}
@@ -74,14 +80,17 @@ const StoriesPage = (props) => {
                   <h5>{data.username}</h5>
                   <p>{data.excerpt}</p>
                   <div className={styles.readMore}>
-                    <Link href={`/stories/${data.storyID}`} className={styles.btn}>
-                    Read More
+                    <Link
+                      href={`/stories/${data.storyID}`}
+                      className={styles.btn}>
+                      Read More
                     </Link>
                   </div>
                 </div>
               </div>
-            );
-          })}
+            </Fade>
+          );
+        })}
       </section>
     </Fragment>
   );

@@ -22,6 +22,7 @@
     "react-markdown": "^7.0.1",
     "react-reveal": "^1.2.2",
     "sass": "^1.39.2",
+    "typewriter-effect": "^2.18.2",
     "unsplash-js": "^7.0.15"
   },
   "devDependencies": {

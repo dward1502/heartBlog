@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import Image from 'next/image'
 import MainCard from '../../components/blog/mainCard'
 import Card from '../../components/blog/card'
+
 import styles from './blog.module.scss';
 import { getAllPostsExceptFirst2, getTop2Posts } from '../../lib/posts_util';
 

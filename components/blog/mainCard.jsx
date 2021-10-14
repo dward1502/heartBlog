@@ -1,5 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import Fade from 'react-reveal/Fade';
+
 import styles from './blogCard.module.scss'
 
 const mainCard = (props) => {
@@ -8,21 +10,23 @@ const mainCard = (props) => {
     const linkPath = `/blog/posts/${slug}`;
 
     return (
-      <div className={styles.recentPosts} >
-        <div className={styles.postImgCont}>
-            <Image src={imagePath} alt={title} layout='fill'/> 
-        </div>
-        <div className={styles.postData}>
-          <h1>{title}</h1>
-          <h3>{date}</h3>
-          <p>{description}</p>
-          <div className={styles.readMore}>
-            <Link href={linkPath}>
+      <Fade duration={3000}>
+        <div className={styles.recentPosts}>
+          <div className={styles.postImgCont}>
+            <Image src={imagePath} alt={title} layout='fill' />
+          </div>
+          <div className={styles.postData}>
+            <h1>{title}</h1>
+            <h3>{date}</h3>
+            <p>{description}</p>
+            <div className={styles.readMore}>
+              <Link href={linkPath}>
                 <a className={styles.btn}>Read More</a>
-            </Link>            
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </Fade>
     );
 }
 
